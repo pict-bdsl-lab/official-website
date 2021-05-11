@@ -1,250 +1,367 @@
-/*  ---------------------------------------------------
-    Template Name: Fashi
-    Description: Fashi eCommerce HTML Template
-    Author: Colorlib
-    Author URI: https://colorlib.com/
-    Version: 1.0
-    Created: Colorlib
----------------------------------------------------------  */
+/*
 
-'use strict';
+Script  : Main JS
+Version : 1.0
+Author  : Surjith S M
+URI     : http://themeforest.net/user/surjithctly
 
-(function ($) {
+Copyright © All rights Reserved
+Surjith S M / @surjithctly
 
-    /*------------------
-        Preloader
-    --------------------*/
-    $(window).on('load', function () {
-        $(".loader").fadeOut();
-        $("#preloder").delay(200).fadeOut("slow");
-    });
+*/
 
-    /*------------------
-        Background Set
-    --------------------*/
-    $('.set-bg').each(function () {
-        var bg = $(this).data('setbg');
-        $(this).css('background-image', 'url(' + bg + ')');
-    });
+$(function() {
 
-    /*------------------
-		Navigation
-	--------------------*/
-    $(".mobile-menu").slicknav({
-        prependTo: '#mobile-menu-wrap',
-        allowParentLinks: true
-    });
+    "use strict";
 
-    /*------------------
-        Hero Slider
-    --------------------*/
-    $(".hero-items").owlCarousel({
-        loop: true,
-        margin: 0,
-        nav: true,
-        items: 1,
-        dots: false,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
-    });
+    /* ================================================
+       On Scroll Menu
+       ================================================ */
 
-    /*------------------
-        Product Slider
-    --------------------*/
-   $(".product-slider").owlCarousel({
-        loop: true,
-        margin: 25,
-        nav: true,
-        items: 4,
-        dots: true,
-        navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
-        responsive: {
-            0: {
-                items: 1,
-            },
-            576: {
-                items: 2,
-            },
-            992: {
-                items: 2,
-            },
-            1200: {
-                items: 3,
-            }
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 600) {
+            $('.js-reveal-menu').removeClass('reveal-menu-hidden').addClass('reveal-menu-visible');
+        } else {
+            $('.js-reveal-menu').removeClass('reveal-menu-visible').addClass('reveal-menu-hidden');
         }
     });
 
-    /*------------------
-       logo Carousel
-    --------------------*/
-    $(".logo-carousel").owlCarousel({
-        loop: false,
-        margin: 30,
-        nav: false,
-        items: 5,
-        dots: false,
-        navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
-        smartSpeed: 1200,
-        autoHeight: false,
-        mouseDrag: false,
-        autoplay: true,
-        responsive: {
-            0: {
-                items: 3,
-            },
-            768: {
-                items: 5,
-            }
+    /* ================================================
+       Parallax Header
+       ================================================ */
+
+    if ($('.parallax-bg').length) {
+        $('.parallax-bg').parallax({
+            speed: 0.20
+        });
+    }
+
+    /* ================================================
+       FLEX SLIDER
+       ================================================ */
+
+    if ($('.flexslider').length) {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            useCSS: Modernizr.touch
+        });
+    }
+
+    /* ================================================
+       Initialize Countdown
+       ================================================ */
+
+    /*Fetch Event Date From HTML. For Not tech Savvy Users */
+
+    var get_date = $('#countdown').data('event-date');
+
+    if (get_date) {
+        $("#countdown").countdown({
+            date: get_date,
+            /*Change date and time in HTML data-event-date attribute */
+            format: "on"
+        });
+    }
+
+    /* ================================================
+       Initialize Tabs
+       ================================================ */
+
+    $('#schedule-tabs a').on("click",function(e) {
+        e.preventDefault()
+        $(this).tab('show')
+    });
+
+    /* ================================================
+       Stat Counter
+       ================================================ */
+
+    $('#stats-counter').appear(function() {
+        $('.count').countTo({
+            refreshInterval: 50
+        });
+    });
+
+    /* ================================================
+       Initialize Slick Slider 
+       ================================================ */
+
+    /* 
+       SLICK SLIDER
+       ------------ */
+
+    if ($('.slick-slider').length) {
+        $('.slick-slider').slick({
+            slidesToShow: 6,
+            slidesToScroll: 6,
+            infinite: true,
+            autoplay: false,
+            arrows: true,
+            dots: true,
+            responsive: [{
+                breakpoint: 1200,
+                settings: {
+                    arrows: true,
+                    slidesToShow: 5,
+                    slidesToScroll: 5
+                }
+            }, {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                }
+            }, {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }]
+        });
+    }
+
+    /* 
+    SPONSORS
+    -------- */
+
+    if ($('.sponsor-slider').length) {
+        $('.sponsor-slider').slick({
+            centerMode: true,
+            centerPadding: '30px',
+            slidesToShow: 3,
+            autoplay: true,
+            arrows: false,
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 3
+                }
+            }, {
+                breakpoint: 480,
+                settings: {
+                    arrows: false,
+                    centerMode: true,
+                    centerPadding: '40px',
+                    slidesToShow: 1
+                }
+            }]
+        });
+    }
+
+    /* 
+       SPEAKERS
+       -------- */
+
+    if ($('.speaker-slider').length) {
+        $('.speaker-slider').slick({
+            slidesToShow: 6,
+            autoplay: false,
+            arrows: true,
+            responsive: [{
+                breakpoint: 1200,
+                settings: {
+                    arrows: true,
+                    slidesToShow: 5
+                }
+            }, {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3
+                }
+            }, {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1
+                }
+            }]
+        });
+    }
+
+    /* ================================================
+       Scroll Functions
+       ================================================ */
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 1000) {
+            $('.back_to_top').fadeIn('slow');
+        } else {
+            $('.back_to_top').fadeOut('slow');
         }
     });
 
-    /*-----------------------
-       Product Single Slider
-    -------------------------*/
-    $(".ps-slider").owlCarousel({
-        loop: false,
-        margin: 10,
-        nav: true,
-        items: 3,
-        dots: false,
-        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
+    $('nav a[href^=#]:not([href=#]), .back_to_top').on('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top - 50
+        }, 1500);
+        event.preventDefault();
     });
-    
-    /*------------------
-        CountDown
-    --------------------*/
-    // For demo preview
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
 
-    if(mm == 12) {
-        mm = '01';
-        yyyy = yyyy + 1;
-    } else {
-        mm = parseInt(mm) + 1;
-        mm = String(mm).padStart(2, '0');
+});
+
+/* ================================================
+  Video Gallery
+  ================================================ */
+
+$(".play-video").on("click",function(e) {
+    e.preventDefault();
+    var videourl = $(this).data("video-url");
+    $(this).append('<i class="video-loader fa fa-spinner fa-spin"></i>')
+    $('.media-video iframe').attr('src', videourl);
+    setTimeout(function() {
+        $('.video-loader').remove();
+    }, 1000);
+});
+
+/* ================================================
+   Magnific Popup
+   ================================================ */
+if ($('.popup-gallery').length) {
+    $('.popup-gallery').magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        tLoading: 'Loading image #%curr%...',
+        mainClass: 'mfp-img-mobile',
+        gallery: {
+            enabled: true,
+            navigateByImgClick: true,
+            preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+        },
+        image: {
+            tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
+        },
+        zoom: {
+            enabled: true,
+            duration: 300, // don't foget to change the duration also in CSS
+            opener: function(element) {
+                return element.find('img');
+            }
+        }
+    });
+}
+
+/* ================================================
+   jQuery Validate - Reset Defaults
+   ================================================ */
+
+$.validator.setDefaults({
+    highlight: function(element) {
+        $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+        $(element).closest('.form-group').removeClass('has-error');
+    },
+    errorElement: 'small',
+    errorClass: 'help-block',
+    errorPlacement: function(error, element) {
+        if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        }
+        if (element.parent('label').length) {
+            error.insertAfter(element.parent());
+        } else {
+            error.insertAfter(element);
+        }
     }
-    var timerdate = mm + '/' + dd + '/' + yyyy;
-    // For demo preview end
+});
 
-    console.log(timerdate);
-    
+/* ================================================
+   Add to Calendar
+   ================================================ */
 
-    // Use this for real timer date
-    /* var timerdate = "2020/01/01"; */
-
-	$("#countdown").countdown(timerdate, function(event) {
-        $(this).html(event.strftime("<div class='cd-item'><span>%D</span> <p>Days</p> </div>" + "<div class='cd-item'><span>%H</span> <p>Hrs</p> </div>" + "<div class='cd-item'><span>%M</span> <p>Mins</p> </div>" + "<div class='cd-item'><span>%S</span> <p>Secs</p> </div>"));
-    });
-
-        
-    /*----------------------------------------------------
-     Language Flag js 
-    ----------------------------------------------------*/
-    $(document).ready(function(e) {
-    //no use
-    try {
-        var pages = $("#pages").msDropdown({on:{change:function(data, ui) {
-            var val = data.value;
-            if(val!="")
-                window.location = val;
-        }}}).data("dd");
-
-        var pagename = document.location.pathname.toString();
-        pagename = pagename.split("/");
-        pages.setIndexByValue(pagename[pagename.length-1]);
-        $("#ver").html(msBeautify.version.msDropdown);
-    } catch(e) {
-        // console.log(e);
+(function() {
+    if (window.addtocalendar)
+        if (typeof window.addtocalendar.start == "function") return;
+    if (window.ifaddtocalendar == undefined) {
+        window.ifaddtocalendar = 1;
+        var d = document,
+            s = d.createElement('script'),
+            g = 'getElementsByTagName';
+        s.type = 'text/javascript';
+        s.charset = 'UTF-8';
+        s.async = true;
+        s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://addtocalendar.com/atc/1.5/atc.min.js';
+        var h = d[g]('body')[0];
+        h.appendChild(s);
     }
-    $("#ver").html(msBeautify.version.msDropdown);
+})();
 
-    //convert
-    $(".language_drop").msDropdown({roundedBorder:false});
-        $("#tech").data("dd");
-    });
-    /*-------------------
-		Range Slider
-	--------------------- */
-	var rangeSlider = $(".price-range"),
-		minamount = $("#minamount"),
-		maxamount = $("#maxamount"),
-		minPrice = rangeSlider.data('min'),
-		maxPrice = rangeSlider.data('max');
-	    rangeSlider.slider({
-		range: true,
-		min: minPrice,
-        max: maxPrice,
-		values: [minPrice, maxPrice],
-		slide: function (event, ui) {
-			minamount.val('$' + ui.values[0]);
-			maxamount.val('$' + ui.values[1]);
-		}
-	});
-	minamount.val('$' + rangeSlider.slider("values", 0));
-    maxamount.val('$' + rangeSlider.slider("values", 1));
+/* ================================================
+   Twitter Widget
+   ================================================ */
 
-    /*-------------------
-		Radio Btn
-	--------------------- */
-    $(".fw-size-choose .sc-item label, .pd-size-choose .sc-item label").on('click', function () {
-        $(".fw-size-choose .sc-item label, .pd-size-choose .sc-item label").removeClass('active');
-        $(this).addClass('active');
-    });
-    
-    /*-------------------
-		Nice Select
-    --------------------- */
-    $('.sorting, .p-show').niceSelect();
+window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
 
-    /*------------------
-		Single Product
-	--------------------*/
-	$('.product-thumbs-track .pt').on('click', function(){
-		$('.product-thumbs-track .pt').removeClass('active');
-		$(this).addClass('active');
-		var imgurl = $(this).data('imgbigurl');
-		var bigImg = $('.product-big-img').attr('src');
-		if(imgurl != bigImg) {
-			$('.product-big-img').attr({src: imgurl});
-			$('.zoomImg').attr({src: imgurl});
-		}
-	});
+    t._e = [];
+    t.ready = function(f) {
+        t._e.push(f);
+    };
 
-    $('.product-pic-zoom').zoom();
-    
-    /*-------------------
-		Quantity change
-	--------------------- */
-    var proQty = $('.pro-qty');
-	proQty.prepend('<span class="dec qtybtn">-</span>');
-	proQty.append('<span class="inc qtybtn">+</span>');
-	proQty.on('click', '.qtybtn', function () {
-		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
-		if ($button.hasClass('inc')) {
-			var newVal = parseFloat(oldValue) + 1;
-		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 0) {
-				var newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 0;
-			}
-		}
-		$button.parent().find('input').val(newVal);
-	});
+    return t;
+}(document, "script", "twitter-wjs"));
 
-})(jQuery);
+/* ================================================
+   Paypal Form Validation
+   ================================================ */
+
+// validate Registration Form
+$("#paypal-regn").validate({
+    rules: {
+        first_name: "required",
+        last_name: "required",
+        email: {
+            required: true,
+            email: true
+        },
+        os0: "required",
+        quantity: "required",
+        agree: "required"
+    },
+    messages: {
+        first_name: "Your first name",
+        last_name: "Your last name",
+        email: "We need your email address",
+        os0: "Choose your Pass",
+        quantity: "How many seats",
+        agree: "Please accept our terms and privacy policy"
+    },
+    submitHandler: function(form) {
+        $("#reserve-btn").attr("disabled", true);
+        form.submit();
+    }
+});
+
+/*
+ * // End $ Strict Function
+ * ------------------------ */
+
+$(function() {
+
+    /* ================================================
+       Initialize WOW JS
+       ================================================ */
+
+    if ($('body').hasClass('animate-page')) {
+        wow = new WOW({
+            animateClass: 'animated',
+            offset: 100,
+            mobile: false
+        });
+        wow.init();
+    }
+});
+
+/*
+ * End $ Function
+ * -------------- */
